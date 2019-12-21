@@ -7,7 +7,7 @@ from urllib.request import urlopen
 
 AUTH0_DOMAIN = 'julius-czar.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'drink'
+API_AUDIENCE = 'movie'
 
 # AuthError Exception
 '''
