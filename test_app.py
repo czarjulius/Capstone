@@ -76,6 +76,17 @@ class MHTestCase(unittest.TestCase):
         self.assertEqual(data['message'], 'Movie created successfully')
         self.assertEqual(data['movie']['title'], 'Jumanji')
 
+    def test_post_movie_400(self):
+        response = self.client().post(
+            '/movies',
+            json={'title': '', 'release_date': ""},
+            headers={"Authorization": "Bearer " + EXECUTIVE_PRODUCER}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Bad Request, pls check your inputs')
+
 
 #####################    MOVIE TEST ENDS #################################################
 
