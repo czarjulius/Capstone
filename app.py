@@ -5,19 +5,42 @@ from models import setup_db, db, Movie, Actor
 from auth.auth import AuthError, requires_auth
 from validate import *
 
+
 def create_app(test_config=None):
-  # create and configure the app
-  app = Flask(__name__)
-  setup_db(app)
-  CORS(app)
+    # create and configure the app
+    app = Flask(__name__)
+    setup_db(app)
+    CORS(app)
 
-@app.route('/')
-def welcome():
-  return 'Welcome to Capstone Hub!'
+    @app.route('/')
+    def welcome():
+        try:
+            return 'Welcome to Capstone Hub!'
+        except:
+            abort(500)
 
-  return app
+
+
+
+
+
+
+
+
+
+
+    # handle bad request
+    @app.errorhandler(500)
+    def bad_request(error):
+        return jsonify({
+            "success": False,
+            "message": "Something went wrong, please try again"
+        }), 500
+
+    return app
+
 
 app = create_app()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run()
