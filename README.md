@@ -71,7 +71,7 @@ As an Executive Producer within Capstone company, I have been able to create a s
  | GET | /movies/id | get:movies | All Registered Users | N/A | Get a movie |
  | DELETE | /movies/id | delete:movies | Executive Producer | N/A | Delete a movie |
  | POST | /actors | post:actors | Executive Producer/Casting Director|{ name:"String", age:"Number", gender:"String" } |Create an actor |
- | PATCH | /actors/id | patch:actors | Executive Producer/Casting Director |{ name:"optional String", age:"optional Number" gender:"optional String" }| Updates an actor |
+ | PATCH | /actors/id | patch:actors | Executive Producer/Casting Director | { name:"optional String", age:"optional Number" gender:"optional String" }| Updates an actor |
  | GET | /actors | get:actors | All Registered Users | N/A | Gets list of actors |
  | GET | /actors/id | get:actors | All Registered Users | N/A | Get an actor |
  | DELETE | /actors/id | delete:actors | Executive Producer/Casting Director | N/A | delete an actor |
