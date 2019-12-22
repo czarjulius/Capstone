@@ -12,6 +12,7 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
+# Index route
     @app.route('/')
     def sayWelcome():
         try:
@@ -20,6 +21,7 @@ def create_app(test_config=None):
             abort(500)
 
 #####################    MOVIE ENDPOINTS STARTS #################################################
+# Get all movies
     @app.route('/movies')
     @requires_auth('get:movies')
     def get_movies(jwt):
@@ -32,12 +34,11 @@ def create_app(test_config=None):
         except:
             abort(500)
 
+# Get a specific movie by ID
     @app.route('/movies/<int:id>')
     @requires_auth('get:movies')
     def get_movie_byId(jwt, id):
         movie = Movie.query.get(id)
-
-        # print(movie, 'llllllllllllllllllllllllllllllllllll')
 
         if movie is None:
             abort(404)
@@ -47,6 +48,7 @@ def create_app(test_config=None):
                 'movie': movie.format(),
             }), 200
 
+# Create a new movie
     @app.route('/movies', methods=['POST'])
     @requires_auth('post:movies')
     def post_movie(jwt):
@@ -68,6 +70,7 @@ def create_app(test_config=None):
             abort(500)
 
 
+# Edit a specific movie 
     @app.route('/movies/<int:id>', methods=['PATCH'])
     @requires_auth('patch:movies')
     def edit_movie(jwt, id):
@@ -97,6 +100,7 @@ def create_app(test_config=None):
             abort(500)
 
 
+# Delete a particular movie
     @app.route('/movies/<int:id>', methods=['DELETE'])
     @requires_auth('delete:movies')
     def delete_movie(jwt, id):
@@ -120,6 +124,7 @@ def create_app(test_config=None):
 
 #####################    ACTORS ENDPOINTS STARTS #################################################
 
+# Get all actors
     @app.route('/actors')
     @requires_auth('get:actors')
     def get_actors(jwt):
@@ -133,6 +138,7 @@ def create_app(test_config=None):
             abort(500)
 
 
+# Get a specific actor by ID
     @app.route('/actors/<int:id>')
     @requires_auth('get:movies')
     def get_actor_byId(jwt, id):
@@ -146,7 +152,7 @@ def create_app(test_config=None):
                 'actor': actor.format(),
             }), 200
 
-
+# Create a new actor
     @app.route('/actors', methods=['POST'])
     @requires_auth('post:actors')
     def post_actor(jwt):
@@ -168,7 +174,7 @@ def create_app(test_config=None):
         except:
             abort(500)
 
-    
+    # Edit a specific actor 
     @app.route('/actors/<int:id>', methods=['PATCH'])
     @requires_auth('patch:actors')
     def edit_actor(jwt, id):
@@ -199,6 +205,7 @@ def create_app(test_config=None):
             db.session.rollback()
             abort(500)
    
+   # Delete a particular actor
     @app.route('/actors/<int:id>', methods=['DELETE'])
     @requires_auth('delete:actors')
     def delete_actor(jwt, id):
