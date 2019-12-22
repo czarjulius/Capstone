@@ -6,11 +6,11 @@ import json
 from app import create_app
 from models import setup_db, Movie, Actor
 
-EXECUTIVE_PRODUCER = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJqQkdRVGMwTkRBd016WkNOek5DUVRjeU5VUXdOVGRHTVVKR01UQXhNekU0TkVORU4wVkJOUSJ9.eyJpc3MiOiJodHRwczovL2p1bGl1cy1jemFyLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGY4Y2ZiY2MyMjQ3ZjBlYTIwZmVlY2UiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU3NzAyNzExNywiZXhwIjoxNTc3MDM0MzE3LCJhenAiOiI0S3FjeHFWbklXd0ZFRkRlNjBwdHNEVUVBZDVaUDZORyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9ycyIsImRlbGV0ZTptb3ZpZXMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIiwicG9zdDptb3ZpZXMiXX0.ytyDlhAc55Tf1R24-rViVB75xchNgmrpHr1lyTAV7cWFiqjcgXRS-iqvMM6BOMyC0Uo_57wNfPwJPavjPc160aRh7nKfUY1iMGIfqLQ-WvMAN0U99vcjHa6nSzoXlrfMpnP8rQHTM4aM4tJOM5WM756yh4ZKQq516RrRNP0FTSyTDcIrayrYes1eyQCMoDq8Y_kx924ABqtknSGPzDrQqqyunJIBTo2KHgsOGRw2_4t4GHYlNShkLwUe07OSwO4M49JwU5-3dYPJeh2hTjz6nyHQW8CT29lqHoFysQVAZJ364n1HxAO0X__dE7j0qcgFbVi7xbDRlUqaIqmeheth7Q'
+EXECUTIVE_PRODUCER = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJqQkdRVGMwTkRBd016WkNOek5DUVRjeU5VUXdOVGRHTVVKR01UQXhNekU0TkVORU4wVkJOUSJ9.eyJpc3MiOiJodHRwczovL2p1bGl1cy1jemFyLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGY4Y2ZiY2MyMjQ3ZjBlYTIwZmVlY2UiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU3NzA0NDQ3NSwiZXhwIjoxNTc3MDUxNjc1LCJhenAiOiI0S3FjeHFWbklXd0ZFRkRlNjBwdHNEVUVBZDVaUDZORyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9ycyIsImRlbGV0ZTptb3ZpZXMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIiwicG9zdDptb3ZpZXMiXX0.E4ITdm-y6cCkPXVcJvZsoKhQ43PwqMogldt1l7PvHOpXOj1q1iCd1yBAlJxNd3gUtrp5i6Sq75Yb3Cf9HlZ6es8vE5QBa0p6tYFIQAbvU8OP3Vugk0v4pUjErlVEzaplc2mvoTBW-7PNzeFtxMMP3ACsz3tp5891ELu9ZY4V6pAqcOcJmk8p4yEKzHZJVhAphpEpZ__CfcdJmjHTYPfoRG1UvQciIUr3vlGVJV9sgIbhmoJmtllF5ZPmpwirhmBy9MwNC0G5k5ri8oQ0g7Dn50Vto0TCCbpNke09T7TwQ8_YTXKLe5_cZf9ARtb1cBIZzFlRhn1xJZkYGZoVUHf84Q'
 
-CASTING_DIRECTOR = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJqQkdRVGMwTkRBd016WkNOek5DUVRjeU5VUXdOVGRHTVVKR01UQXhNekU0TkVORU4wVkJOUSJ9.eyJpc3MiOiJodHRwczovL2p1bGl1cy1jemFyLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGZjOWYyNjk0ZDdhNTE1MzY1ZjdhMzgiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU3NzAyNjk3NCwiZXhwIjoxNTc3MDM0MTc0LCJhenAiOiI0S3FjeHFWbklXd0ZFRkRlNjBwdHNEVUVBZDVaUDZORyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9ycyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiXX0.lhEP76HON-2o2zgcpja830uoFOYdyQbpEl3ZF6OuDYVn-ENM7WiGYfDaNHfOe32Tt49mKsJzBZsUOayoyMLkaIx94S-1lUCnr2YKSkkTK2L06LrXZI1df03DC_zP5mIrg2cMrnQB0RG455Yo3l9XdlnTt2HLU7I2TmQLLc_Y-vDS4nwrCd3FhtYQuzWvwIqLAka9rifZFv9XiVw374knDaX0ui3YtrBvF_ZyjJE-s65pxPQXcgLOpGzBPEm46-VknVX-G1i7qG1dbUW8Nj3UweOhwEQCsOwGCrUWQlTKt3n7xVAdbiqbbCxFs4rHo0rczFG81rfbI2nQEPNOUPusXg'
+CASTING_DIRECTOR = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJqQkdRVGMwTkRBd016WkNOek5DUVRjeU5VUXdOVGRHTVVKR01UQXhNekU0TkVORU4wVkJOUSJ9.eyJpc3MiOiJodHRwczovL2p1bGl1cy1jemFyLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGZjOWYyNjk0ZDdhNTE1MzY1ZjdhMzgiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU3NzA0NDU2NiwiZXhwIjoxNTc3MDUxNzY2LCJhenAiOiI0S3FjeHFWbklXd0ZFRkRlNjBwdHNEVUVBZDVaUDZORyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9ycyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiXX0.nbxd2tw1o1PfOaxoqN-nRowjn5khpwg1H_cfceseZV_pmwcnnDkv1zXMu4mVVg8DliECmI95mKmFCzKeQWntfqPiCRs_R1_dIf3YvF3ZVZdIP5srk5mnEaluQssW4igI2mIVy5Uxzo4NaEj9jsZpC_0L5nZXAykyU_XMX8LFDmjolHqtK8DURAo__aK8lL3OtouqpaI_SLVp5TV6L5JTA_WoKh0zGiF1JF8AAKY1c44cPd3ctRLWLTBX3Lzp6L2hDdOOxJDhjbtjqapf57X7pVuin_hp-fmDFnFOpj6fCanMZoNhwncJDlT-IFBCMTLBCs8m7O2jkiKxRO9zFe3cmA'
 
-CASTING_ASSISTANT = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJqQkdRVGMwTkRBd016WkNOek5DUVRjeU5VUXdOVGRHTVVKR01UQXhNekU0TkVORU4wVkJOUSJ9.eyJpc3MiOiJodHRwczovL2p1bGl1cy1jemFyLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGZjOWZmNDk0ZDdhNTE1MzY1ZjdhNDEiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU3NzAyNTQ3MywiZXhwIjoxNTc3MDMyNjczLCJhenAiOiI0S3FjeHFWbklXd0ZFRkRlNjBwdHNEVUVBZDVaUDZORyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiXX0.ncExksZzJtV-OescOXL5iskWE-bPC8Iejijvt_gldBIWl6Bjo14SOmY0ZayDm2T4FIziCyDhxetAfOOao0GUVP2mw3Eyr2Uxn6W2gwK_swLPSKZqAJJ5umBncDjc43vOT80c5WRfRnqRhds0iOS7lvUFd5h5USQMmXYggZQ7oQgLsNWPQNerEsXXaG3ytL2FRnDAuxKhRYOZ_dxBVf0ZpVCOU_4XwXHMJfyFzIR2ab7ao2OL_dWsgcFzMDXRR7HyilTbRjyqRjQpYcZw4NtEehrHy6RB1JmT_ku4At5eZPqRCiVof8KUKcwuQ0o1zcqsSyMab1hkABBADHeO2vJjDA'
+CASTING_ASSISTANT = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJqQkdRVGMwTkRBd016WkNOek5DUVRjeU5VUXdOVGRHTVVKR01UQXhNekU0TkVORU4wVkJOUSJ9.eyJpc3MiOiJodHRwczovL2p1bGl1cy1jemFyLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGZjOWZmNDk0ZDdhNTE1MzY1ZjdhNDEiLCJhdWQiOiJtb3ZpZSIsImlhdCI6MTU3NzA0NDY2MSwiZXhwIjoxNTc3MDUxODYxLCJhenAiOiI0S3FjeHFWbklXd0ZFRkRlNjBwdHNEVUVBZDVaUDZORyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiXX0.Gty18NQclNKdtGjzmfoApvhY5FYApio_Dq-i-3C00jcTTlbQNGQLL8ysK2fOn_N8G2NFEt1wnYUl2AgDnWD_E6C6nn37b01neAT2ecYW_LaKhCzrHxmn7l7FCPeTm2aDRGAnFB3fqGNyeo2hLP5dL_rLv_D72V2VdU9M0wT5Lbo-HWO15z57olAx7JRUQg-cxa45eiApRTgd6k8BdiPrD_EL_jblmpbrMM6hWlt9TkQ5l7L4_USzYBzaRMDsien7HYzj3RapetAz--tzJPIvzKMGfKqetucXbgNZNGY2muieNc1BLPcF4Qb8oyLGzcnJBZhXt9lPxOrU7KQlv8ofhQ'
 
 
 class MHTestCase(unittest.TestCase):
@@ -50,11 +50,11 @@ class MHTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(data['movie'])
-        self.assertEqual(data['movie']['title'], 'Black Panther')
+        self.assertEqual(data['movie']['title'], 'Nikita')
 
     def test_get_movie_byId_404(self):
         response = self.client().get(
-            '/movies/10000',
+            '/movies/333333',
             headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
         )
         data = json.loads(response.data)
@@ -67,14 +67,14 @@ class MHTestCase(unittest.TestCase):
     def test_post_movie(self):
         response = self.client().post(
             '/movies',
-            json={'title': 'Jumanji', 'release_date': "1981-02-19"},
+            json={'title': 'Sigidi', 'release_date': "2017-02-19"},
             headers={"Authorization": "Bearer " + EXECUTIVE_PRODUCER}
         )
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['message'], 'Movie created successfully')
-        self.assertEqual(data['movie']['title'], 'Jumanji')
+        self.assertEqual(data['movie']['title'], 'Sigidi')
 
     def test_post_movie_400(self):
         response = self.client().post(
@@ -90,7 +90,7 @@ class MHTestCase(unittest.TestCase):
     def test_post_movie_401(self):
         response = self.client().post(
             '/movies',
-            json={'title': 'Wrong movie', 'release_date': "1984-01-23"},
+            json={'title': 'Unauthorize movie', 'release_date': "2019-12-23"},
             headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
         )
         data = json.loads(response.data)
@@ -101,14 +101,14 @@ class MHTestCase(unittest.TestCase):
     def test_edit_movie(self):
         response = self.client().patch(
             '/movies/2',
-            json={'title': 'The Hangover', 'release_date': "2018-10-12"},
+            json={'title': 'The Squash', 'release_date': "2000-10-19"},
             headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
         )
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['message'], 'Movie updated')
-        self.assertEqual(data['movie']['title'], 'The Hangover')
+        self.assertEqual(data['movie']['title'], 'The Squash')
 
 
     def test_edit_movie_400(self):
@@ -125,8 +125,8 @@ class MHTestCase(unittest.TestCase):
 
     def test_edit_movie_404(self):
         response = self.client().patch(
-            '/movies/50000',
-            json={'title': 'Black Panther 2', 'release_date': "2019-11-12"},
+            '/movies/4444444',
+            json={'title': 'New Life', 'release_date': "2003-09-16"},
             headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
         )
         data = json.loads(response.data)
@@ -148,7 +148,7 @@ class MHTestCase(unittest.TestCase):
 
     def test_delete_movie_404(self):
         response = self.client().delete(
-            '/movies/110000',
+            '/movies/11111111',
             headers={"Authorization": "Bearer " + EXECUTIVE_PRODUCER}
         )
         data = json.loads(response.data)
@@ -183,7 +183,7 @@ class MHTestCase(unittest.TestCase):
 
 
     # GET /actors/id
-    def test_get_actor_by_id(self):
+    def test_get_actor_byId(self):
         response = self.client().get(
             '/actors/1',
             headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
@@ -192,11 +192,11 @@ class MHTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(data['actor'])
-        self.assertEqual(data['actor']['name'], 'Pierce Brosnan')
+        self.assertEqual(data['actor']['name'], 'Arnold Swaztnigger')
 
-    def test_get_actor_by_id_404(self):
+    def test_get_actor_byId_404(self):
         response = self.client().get(
-            '/actors/10000',
+            '/actors/121234',
             headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
         )
         data = json.loads(response.data)
@@ -209,14 +209,14 @@ class MHTestCase(unittest.TestCase):
     def test_post_actor(self):
         response = self.client().post(
             '/actors',
-            json={'name': 'David', 'age': 44, "gender": "male"},
+            json={'name': 'Julius', 'age': 24, "gender": "male"},
             headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
         )
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['message'], 'Actor added')
-        self.assertEqual(data['actor']['name'], 'David')
+        self.assertEqual(data['actor']['name'], 'Julius')
 
 
     def test_post_actor_400(self):
@@ -234,7 +234,7 @@ class MHTestCase(unittest.TestCase):
     def test_post_actor_401(self):
         response = self.client().post(
             '/actors',
-            json={'name': 'Jude', 'age': 44, "gender": "male"},
+            json={'name': 'Czar', 'age': 14, "gender": "female"},
             headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
         )
         data = json.loads(response.data)
@@ -245,14 +245,14 @@ class MHTestCase(unittest.TestCase):
     def test_edit_actor(self):
         response = self.client().patch(
             '/actors/2',
-            json={'name': 'Cynthia', 'age': 27, "gender": "female"},
+            json={'name': 'Emily', 'age': 37, "gender": "male"},
             headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
         )
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['message'], 'Actor updated')
-        self.assertEqual(data['actor']['name'], 'Cynthia')
+        self.assertEqual(data['actor']['name'], 'Emily')
 
     def test_edit_actor_400(self):
         response = self.client().patch(
@@ -268,8 +268,8 @@ class MHTestCase(unittest.TestCase):
 
     def test_edit_actor_404(self):
         response = self.client().patch(
-            '/actors/50000',
-            json={'name': 'Cynthia', 'age': 27, "gender": "female"},
+            '/actors/9999999',
+            json={'name': 'Mike', 'age': 65, "gender": "male"},
             headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
         )
         data = json.loads(response.data)
@@ -302,7 +302,7 @@ class MHTestCase(unittest.TestCase):
     
     def test_delete_actor_404(self):
         response = self.client().delete(
-            '/actors/110000',
+            '/actors/545432',
             headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
         )
         data = json.loads(response.data)
