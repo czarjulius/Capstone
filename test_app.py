@@ -111,6 +111,17 @@ class MHTestCase(unittest.TestCase):
         self.assertEqual(data['movie']['title'], 'The Hangover')
 
 
+    def test_edit_movie_400(self):
+        response = self.client().patch(
+            '/movies/1',
+            json={'title': '', 'release_date': ""},
+            headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Bad Request, pls check your inputs')
+
 #####################    MOVIE TEST ENDS #################################################
 
 # Make the tests conveniently executable
