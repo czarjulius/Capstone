@@ -230,6 +230,17 @@ class MHTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Bad Request, pls check your inputs')
 
+    
+    def test_post_actor_401(self):
+        response = self.client().post(
+            '/actors',
+            json={'name': 'Jude', 'age': 44, "gender": "male"},
+            headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(data['message']['code'], 'unauthorized')
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
