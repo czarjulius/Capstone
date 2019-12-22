@@ -134,7 +134,56 @@ class MHTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Resource not found')
 
+
+    # DELETE /movies/id
+    def test_delete_movie(self):
+        response = self.client().delete(
+            '/movies/3',
+            headers={"Authorization": "Bearer " + EXECUTIVE_PRODUCER}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['message'], 'Movie deleted')
+
+    # def test_delete_movie_404(self):
+    #     response = self.client().delete(
+    #         '/movies/110000',
+    #         headers={"Authorization": "Bearer " + EXECUTIVE_PRODUCER}
+    #     )
+    #     data = json.loads(response.data)
+    #     self.assertEqual(response.status_code, 404)
+    #     self.assertEqual(data['success'], False)
+    #     self.assertEqual(data['message'], 'Resource not found')
+
+    def test_delete_movie_401(self):
+        response = self.client().delete(
+            '/movies/1',
+            headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(data['message']['code'], 'unauthorized')
+
 #####################    MOVIE TEST ENDS #################################################
+
+
+
+#####################    ACTORS TEST START #################################################
+    #  GET /actors
+    def test_get_actors(self):
+        response = self.client().get(
+            '/actors',
+            headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['actors'])
+
+
+
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
