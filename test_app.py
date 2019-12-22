@@ -182,6 +182,17 @@ class MHTestCase(unittest.TestCase):
         self.assertTrue(data['actors'])
 
 
+    # GET /actors/id
+    def test_get_actor_by_id(self):
+        response = self.client().get(
+            '/actors/1',
+            headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['actor'])
+        self.assertEqual(data['actor']['name'], 'Pierce Brosnan')
 
 
 
