@@ -122,6 +122,18 @@ class MHTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Bad Request, pls check your inputs')
 
+
+    def test_edit_movie_404(self):
+        response = self.client().patch(
+            '/movies/50000',
+            json={'title': 'Black Panther 2', 'release_date': "2019-11-12"},
+            headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Resource not found')
+
 #####################    MOVIE TEST ENDS #################################################
 
 # Make the tests conveniently executable
