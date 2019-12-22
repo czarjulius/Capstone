@@ -138,7 +138,7 @@ class MHTestCase(unittest.TestCase):
     # DELETE /movies/id
     def test_delete_movie(self):
         response = self.client().delete(
-            '/movies/3',
+            '/movies/1',
             headers={"Authorization": "Bearer " + EXECUTIVE_PRODUCER}
         )
         data = json.loads(response.data)
@@ -241,6 +241,74 @@ class MHTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 401)
         self.assertEqual(data['message']['code'], 'unauthorized')
 
+    # PATCH /actors
+    def test_edit_actor(self):
+        response = self.client().patch(
+            '/actors/2',
+            json={'name': 'Cynthia', 'age': 27, "gender": "female"},
+            headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['message'], 'Actor updated')
+        self.assertEqual(data['actor']['name'], 'Cynthia')
+
+    def test_edit_actor_400(self):
+        response = self.client().patch(
+            '/actors/2',
+            json={'name': '', 'age': '', "gender": ""},
+            headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Bad Request, pls check your inputs')
+
+
+    def test_edit_actor_404(self):
+        response = self.client().patch(
+            '/actors/50000',
+            json={'name': 'Cynthia', 'age': 27, "gender": "female"},
+            headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Resource not found')
+
+
+    # DELETE /actors/id
+    def test_delete_actor(self):
+        response = self.client().delete(
+            '/actors/3',
+            headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['message'], 'Actor deleted')
+
+    
+    def test_delete_actor_401(self):
+        response = self.client().delete(
+            '/actors/2',
+            headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(data['message']['code'], 'unauthorized')
+
+    
+    def test_delete_actor_404(self):
+        response = self.client().delete(
+            '/actors/110000',
+            headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Resource not found')
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
