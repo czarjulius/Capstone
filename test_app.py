@@ -41,7 +41,7 @@ class MHTestCase(unittest.TestCase):
         self.assertTrue(data['movies'])
 
     # GET /movies/id
-    def test_get_movie_by_id(self):
+    def test_get_movie_byId(self):
         response = self.client().get(
             '/movies/1',
             headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
@@ -52,16 +52,16 @@ class MHTestCase(unittest.TestCase):
         self.assertTrue(data['movie'])
         self.assertEqual(data['movie']['title'], 'Black Panther')
 
-    # def test_get_movie_byId_404(self):
-    #     response = self.client().get(
-    #         '/movies/10000',
-    #         headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
-    #     )
-    #     data = json.loads(response.data)
-    #     self.assertEqual(response.status_code, 404)
-    #     self.assertEqual(data['success'], False)
-    #     self.assertTrue(data['message'])
-    #     self.assertEqual(data['message'], 'Resource not found')
+    def test_get_movie_byId_404(self):
+        response = self.client().get(
+            '/movies/10000',
+            headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertTrue(data['message'])
+        self.assertEqual(data['message'], 'Resource not found')
 
     # POST /movies
     def test_post_movie(self):
@@ -138,23 +138,23 @@ class MHTestCase(unittest.TestCase):
     # DELETE /movies/id
     def test_delete_movie(self):
         response = self.client().delete(
-            '/movies/1',
+            '/movies/3',
             headers={"Authorization": "Bearer " + EXECUTIVE_PRODUCER}
         )
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['message'], 'Movie deleted')
+        self.assertEqual(data['message'], 'Movie deleted successfully')
 
-    # def test_delete_movie_404(self):
-    #     response = self.client().delete(
-    #         '/movies/110000',
-    #         headers={"Authorization": "Bearer " + EXECUTIVE_PRODUCER}
-    #     )
-    #     data = json.loads(response.data)
-    #     self.assertEqual(response.status_code, 404)
-    #     self.assertEqual(data['success'], False)
-    #     self.assertEqual(data['message'], 'Resource not found')
+    def test_delete_movie_404(self):
+        response = self.client().delete(
+            '/movies/110000',
+            headers={"Authorization": "Bearer " + EXECUTIVE_PRODUCER}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Resource not found')
 
     def test_delete_movie_401(self):
         response = self.client().delete(
@@ -194,16 +194,16 @@ class MHTestCase(unittest.TestCase):
         self.assertTrue(data['actor'])
         self.assertEqual(data['actor']['name'], 'Pierce Brosnan')
 
-    # def test_get_actor_by_id_404(self):
-    #     response = self.client().get(
-    #         '/actors/10000',
-    #         headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
-    #     )
-    #     data = json.loads(response.data)
-    #     self.assertEqual(response.status_code, 404)
-    #     self.assertEqual(data['success'], False)
-    #     self.assertTrue(data['message'])
-    #     self.assertEqual(data['message'], 'Resource not found')
+    def test_get_actor_by_id_404(self):
+        response = self.client().get(
+            '/actors/10000',
+            headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertTrue(data['message'])
+        self.assertEqual(data['message'], 'Resource not found')
 
     # POST /actors
     def test_post_actor(self):
@@ -287,7 +287,7 @@ class MHTestCase(unittest.TestCase):
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['message'], 'Actor deleted')
+        self.assertEqual(data['message'], 'Actor deleted successfully')
 
     
     def test_delete_actor_401(self):

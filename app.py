@@ -35,21 +35,17 @@ def create_app(test_config=None):
     @app.route('/movies/<int:id>')
     @requires_auth('get:movies')
     def get_movie_byId(jwt, id):
-        try:
-            movie = Movie.query.get(id)
+        movie = Movie.query.get(id)
 
-            # print(movie, 'llllllllllllllllllllllllllllllllllll')
+        # print(movie, 'llllllllllllllllllllllllllllllllllll')
 
-            if movie is None:
-                abort(404)
-            else:
-                return jsonify({
-                    'success': True,
-                    'movie': movie.format(),
-                }), 200
-        except:
-            abort(500)
-
+        if movie is None:
+            abort(404)
+        else:
+            return jsonify({
+                'success': True,
+                'movie': movie.format(),
+            }), 200
 
     @app.route('/movies', methods=['POST'])
     @requires_auth('post:movies')
@@ -140,18 +136,15 @@ def create_app(test_config=None):
     @app.route('/actors/<int:id>')
     @requires_auth('get:movies')
     def get_actor_byId(jwt, id):
-        try:
-            actor = Actor.query.get(id)
+        actor = Actor.query.get(id)
 
-            if actor is None:
-                abort(404)
-            else:
-                return jsonify({
-                    'success': True,
-                    'actor': actor.format(),
-                }), 200
-        except:
-            abort(500)
+        if actor is None:
+            abort(404)
+        else:
+            return jsonify({
+                'success': True,
+                'actor': actor.format(),
+            }), 200
 
 
     @app.route('/actors', methods=['POST'])
@@ -217,7 +210,7 @@ def create_app(test_config=None):
             actor.delete()
             return jsonify({
                 'success': True,
-                'message': 'Actor deleted',
+                'message': 'Actor deleted successfully',
                 'actor': actor.id
             })
         except:
