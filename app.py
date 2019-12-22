@@ -38,6 +38,8 @@ def create_app(test_config=None):
         try:
             movie = Movie.query.get(id)
 
+            print(movie, 'llllllllllllllllllllllllllllllllllll')
+
             if movie is None:
                 abort(404)
             else:
