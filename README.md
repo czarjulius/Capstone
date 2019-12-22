@@ -63,12 +63,18 @@ As an Executive Producer within Capstone company, I have been able to create a s
 ## ENDPOINTS
 
  | Method | ROUTE | PERMISSION      | Role | Body | Description |
- | ------ | ----------- | -------------- | ---- |------------|
+ | ------ | ----------- | -------------- | ---- |------------|-----|
  | Get | / | * | * | N/A | index page |
  | POST | /movies | post:movies | Executive Producer |{ title:"String", release_date:"YYYY-MM-DD" }| create a movie |
  | PATCH | /movies/id | patch:movies | Executive Producer/Casting Director |{ title:"String", release_date:"YYYY-MM-DD" }| Updates a movie |
- | GET | /movies | get:movies | * | N/A | Gets list of movies |
-
+ | GET | /movies | get:movies | All Registered Users  | N/A | Gets list of movies |
+ | GET | /movies/id | get:movies | All Registered Users | N/A | Get a movie |
+ | DELETE | /movies/id | delete:movies | Executive Producer | N/A | Delete a movie |
+ | POST | /actors | post:actors | Executive Producer/Casting Director|{ name:"String", age:"Number", gender:"String" } |Create an actor |
+ | PATCH | /actors/id | patch:actors | Executive Producer/Casting Director |{ name:"optional String", age:"optional Number" gender:"optional String" }| Updates an actor |
+ | GET | /actors | get:actors | All Registered Users | N/A | Gets list of actors |
+ | GET | /actors/id | get:actors | All Registered Users | N/A | Get an actor |
+ | DELETE | /actors/id | delete:actors | Executive Producer/Casting Director | N/A | delete an actor |
 
 
 ## Running test
@@ -82,5 +88,5 @@ As an Executive Producer within Capstone company, I have been able to create a s
 - Flask-Script
 
 
-Authors
-Julius Ngwu - Capstone
+## Authors
+- Julius Ngwu - Capstone
