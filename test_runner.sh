@@ -10,4 +10,4 @@ echo 'SEEDING TABLES...'
 python manage.py seed
 
 echo 'RUNNING TEST...'
-python test.py
+python test_app.py
