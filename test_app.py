@@ -194,6 +194,30 @@ class MHTestCase(unittest.TestCase):
         self.assertTrue(data['actor'])
         self.assertEqual(data['actor']['name'], 'Pierce Brosnan')
 
+    # def test_get_actor_by_id_404(self):
+    #     response = self.client().get(
+    #         '/actors/10000',
+    #         headers={"Authorization": "Bearer " + CASTING_ASSISTANT}
+    #     )
+    #     data = json.loads(response.data)
+    #     self.assertEqual(response.status_code, 404)
+    #     self.assertEqual(data['success'], False)
+    #     self.assertTrue(data['message'])
+    #     self.assertEqual(data['message'], 'Resource not found')
+
+    # POST /actors
+    def test_post_actor(self):
+        response = self.client().post(
+            '/actors',
+            json={'name': 'David', 'age': 44, "gender": "male"},
+            headers={"Authorization": "Bearer " + CASTING_DIRECTOR}
+        )
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertEqual(data['message'], 'Actor added')
+        self.assertEqual(data['actor']['name'], 'David')
+
 
 
 # Make the tests conveniently executable
