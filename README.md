@@ -54,7 +54,7 @@ As an Executive Producer within Capstone company, I have been able to create a s
 ### The 3 login details are as follows:
  | Email | Password | Role |
  | ------ | --------|  ---- |
- | juliusczar.jc@gmail.com|julius@@19|Executive Producer |
+ | admin@gmail.com|admin@19|Executive Producer |
  | wisdom@gmail.com|wisdom@19|Casting Director|
  | vivian@gmail.com|vivian@19|Casting Assistant|
 
