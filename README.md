@@ -47,8 +47,10 @@ As an Executive Producer within Capstone company, I have been able to create a s
 - `flask run --reload`
 
 ## Access Details
-### Click [Login to Auth0](https://julius-czar.auth0.com/authorize?audience=movie&response_type=token&client_id=4KqcxqVnIWwFEFDe60ptsDUEAd5ZP6NG&redirect_uri=http://localhost:8080/login-results
-) and user the login details below to generate a token
+### Click the login link below:
+[Login to Auth0](https://julius-czar.auth0.com/authorize?audience=movie&response_type=token&client_id=4KqcxqVnIWwFEFDe60ptsDUEAd5ZP6NG&redirect_uri=http://localhost:8080/login-results
+) 
+### and user the login details below to generate a token
 #### The app uses a third-party service (Auth0) for authentication.
 
 ### The 3 login details are as follows:
