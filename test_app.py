@@ -71,7 +71,7 @@ class MHTestCase(unittest.TestCase):
             headers={"Authorization": "Bearer " + EXECUTIVE_PRODUCER}
         )
         data = json.loads(response.data)
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['message'], 'Movie created successfully')
         self.assertEqual(data['movie']['title'], 'Sigidi')

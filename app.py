@@ -65,7 +65,7 @@ def create_app(test_config=None):
                 'success': True,
                 'message': 'Movie created successfully',
                 'movie': movie.format()
-            }), 201
+            }), 200
         except:
             abort(500)
 
