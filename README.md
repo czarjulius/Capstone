@@ -62,6 +62,8 @@ As an Executive Producer within Capstone company, I have been able to create a s
 
 ## ENDPOINTS
 
+### [Heroku Base Url](https://julius-capstone.herokuapp.com)
+
  | Method | ROUTE | PERMISSION      | Role | Body | Description |
  | ------ | ----------- | -------------- | ---- |------------|-----|
  | Get | / | * | * | N/A | index page |
