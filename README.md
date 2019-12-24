@@ -47,7 +47,7 @@ As an Executive Producer within Capstone company, I have been able to create a s
 - `flask run --reload`
 
 ## Access Details
-[Login to Auth0](https://julius-czar.auth0.com/authorize?audience=movie&response_type=token&client_id=4KqcxqVnIWwFEFDe60ptsDUEAd5ZP6NG&redirect_uri=http://localhost:8080/login-results
+### [Login to Auth0](https://julius-czar.auth0.com/authorize?audience=movie&response_type=token&client_id=4KqcxqVnIWwFEFDe60ptsDUEAd5ZP6NG&redirect_uri=http://localhost:8080/login-results
 )
 #### The app uses a third-party service (Auth0) for authentication.
 
@@ -62,7 +62,7 @@ As an Executive Producer within Capstone company, I have been able to create a s
 
 ## ENDPOINTS
 
-### [Heroku Base Url](https://julius-capstone.herokuapp.com)
+### Use This [Heroku Base Url](https://julius-capstone.herokuapp.com)
 
  | Method | ROUTE | PERMISSION      | Role | Body | Description |
  | ------ | ----------- | -------------- | ---- |------------|-----|
